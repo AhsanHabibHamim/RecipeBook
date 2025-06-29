@@ -1,68 +1,177 @@
 # 🍽️ Recipe Book App
 
-**Live Site:** [https://recipe-book-39501.web.app/]
+🔗 **Live Client:** [https://recipe-book-39501.web.app/](https://recipe-book-39501.web.app/)  
+🔗 **Live Server:** [https://recipe-ahsan-habib-hamims-projects.vercel.app](https://recipe-ahsan-habib-hamims-projects.vercel.app)
+
+---
 
 ## 🌟 Overview
 
-The **Recipe Book App** is a dynamic and user-friendly platform for food lovers to share, discover, and manage recipes. With social features like liking and saving recipes to a wishlist, this app creates an engaging cooking community experience.
+**Recipe Book App** is a full-stack, responsive, and user-friendly platform where cooking enthusiasts can share, explore, and manage recipes. It supports real-time updates, authentication, and community interactions through likes and saved items.
 
-## 🚀 Features
+---
 
-- 🔐 **User Authentication** with Email/Password & Google Sign-In.
-- 🏆 **Top Recipes Section**: Displays the 6 most liked recipes dynamically.
-- 🍲 **CRUD Functionality**: Users can add, view, update, and delete their own recipes.
-- 🎨 **Responsive and Unique Design** for all devices (mobile, tablet, desktop).
-- 🌙 **Dark/Light Theme Toggle** with engaging animations via Lottie and Reveal libraries.
+## 🔥 Features at a Glance
 
-## 🛠️ Technologies Used
+- 🔐 Firebase Auth (Email/Password & Google)
+- 🏆 Top 6 liked recipes on the homepage
+- 📝 Full CRUD functionality for recipes
+- 🎨 Responsive UI with light/dark theme support
+- 📊 Admin Dashboard with analytics
+- 🔎 Filter & sort by cuisine/category
+- 📬 Newsletter and contact support sections
+- ❌ Custom 404 page
 
-- **Frontend**: React.js, Tailwind CSS, DaisyUI, React Router
-- **Backend**: Express.js, MongoDB, Mongoose
-- **Authentication**: Firebase Auth
-- **Hosting**: Netlify (Client), Vercel (Server)
-- **Animation Libraries**: Lottie React, React Awesome Reveal
+---
 
-## 🗂️ Main Pages & Functionalities
+
+## 🖥️ Tech Stack
+
+### 💻 Frontend
+- React.js, Tailwind CSS, DaisyUI, React Router DOM
+- Lottie React, React Awesome Reveal (for animations)
+- Firebase (Authentication)
+- Netlify (Hosting)
+
+### 🧪 Backend
+- Node.js, Express.js
+- MongoDB with Mongoose
+- Firebase Admin SDK (JWT Verification)
+- Vercel (Hosting)
+
+---
+
+## 📁 Folder Structure (Client)
+
+/src
+┣ /pages
+┣ /components
+┣ /routes
+┣ /contexts
+┗ /utils
+
+---
+
+## 🧩 Key Frontend Pages & Features
+
+### 🔹 Navbar & Footer
+- Responsive design with logo, 5+ links, and social icons
+- Sticky navbar on scroll
+- Footer contains logo, useful links, and social links
 
 ### 🔹 Home Page
-- Navbar with conditional rendering based on auth status.
-- Top Recipes section (based on like count).
-- Interactive slider/banner and extra static sections.
-- Dark/Light mode toggle switch.
+- Hero section (max 70% viewport height)
+- Dynamic Top Recipes Section
+- Multiple sliders, categories, blogs, newsletter, and promotions
+- Minimum 7 meaningful sections
 
 ### 🔹 All Recipes Page
-- Displays all user-added recipes in a 4-column grid layout.
-- Includes a filter by cuisine type dropdown.
-- “See Details” buttons for each recipe.
+- Public access
+- 4-column card layout with image, title, short description, and “See More”
+- Filter and sort functionalities
+- Clean details page on “See More” click
 
-### 🔹 Recipe Details Page *(Private Route)*
-- Full details of the selected recipe.
-- Like button to increase interest count (not allowed on own recipes).
-- Live like count display at the top.
+### 🔹 Add Recipe Page *(Private)*
+- Form includes title, image, cuisine, category, ingredients, and instructions
+- Toast success message on submission
 
-### 🔹 Add Recipe Page *(Private Route)*
-- Form with inputs: title, image, ingredients, instructions, cuisine, categories, etc.
-- Submission stores recipe to database with a toast success alert.
+### 🔹 My Recipes Page *(Private)*
+- Shows user’s recipes with update/delete buttons
+- Modal-based update form
 
-### 🔹 My Recipes Page *(Private Route)*
-- Shows recipes added by the logged-in user only.
-- Includes Update and Delete options for each recipe.
-- Update form opens in a modal and updates database in real-time.
+### 🔹 Recipe Details Page *(Private)*
+- Displays full recipe info
+- Like feature (except on own recipes)
+- Live like count
 
-### 🔹 Login/Register Pages
-- Firebase Email/Password auth.
-- Google Social Login.
-- Proper error handling with toast messages.
-- Strong password validation.
+### 🔹 Auth Pages
+- Login/Register with Firebase
+- Google sign-in
+- Form validation and toast notifications
 
-### 🔹 404 Page
-- Custom food-themed design.
-- Excludes navbar/footer for clarity.
+### 🔹 Dashboard *(Private)*
+- Default overview with stats cards: Total Recipes, My Recipes, Likes, etc.
+- Functional routes:
+  - All Items (table view)
+  - Add Item
+  - My Items
 
-## 🔐 Environment Variables
+### 🔹 Error Pages
+- Custom 404 with clean, food-themed design
+- No navbar/footer
 
-Environment variables are used to secure:
-- Firebase config
-- MongoDB credentials
+---
 
-Example `.env` structure:
+## 🧠 Backend API Documentation
+
+### 🔓 Public Routes
+
+| Method | Endpoint             | Description                          |
+|--------|----------------------|--------------------------------------|
+| GET    | `/recipes/top`       | Get top 6 recipes by likes           |
+| GET    | `/recipes`           | Fetch all recipes (supports filters) |
+| GET    | `/recipes/:id`       | Get recipe details by ID             |
+
+### 🔐 Protected Routes (Requires Bearer Token)
+
+| Method | Endpoint              | Description                              |
+|--------|-----------------------|------------------------------------------|
+| POST   | `/recipes`            | Add new recipe (auth required)           |
+| GET    | `/my-recipes`         | Get logged-in user's recipes             |
+| PUT    | `/recipes/:id`        | Update a recipe (only owner)             |
+| DELETE | `/recipes/:id`        | Delete a recipe (only owner)             |
+| PATCH  | `/recipes/:id/like`   | Like a recipe (cannot like own recipe)   |
+
+---
+
+## 🔐 Backend Authentication
+
+- Firebase Admin SDK for server-side token verification
+- `validateToken` middleware for protecting routes
+
+---
+
+## 🧪 Backend Tech Highlights
+
+- Express.js API with RESTful structure
+- MongoDB via Mongoose schema modeling
+- dotenv for secure config
+- Helmet and CORS for security
+- Vercel deployed API endpoint
+
+---
+
+## 📦 Environment Variables (Frontend & Backend)
+
+### Frontend `.env`
+
+VITE_API_BASE_URL=https://your-server-url
+VITE_FIREBASE_API_KEY=your_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+
+### Backend `.env`
+
+PORT=5000
+MONGODB_URI=your_mongo_connection
+FIREBASE_TYPE=...
+FIREBASE_PROJECT_ID=...
+
+---
+
+## 📱 Responsiveness & UI Notes
+
+- Designed for all devices: mobile, tablet, desktop
+- Consistent spacing and margins across sections
+- Light/Dark mode support with contrast-checked colors
+- No unclickable or broken links/buttons
+- Clean and minimalistic UI with professional animations
+
+---
+
+## 📌 Final Notes
+
+- All dummy text removed — real content throughout
+- All buttons and routes fully functional
+- Admin dashboard is private and secure
+- Error pages included and fully styled
+- Fully deployed and production-ready frontend + backend
