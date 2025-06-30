@@ -7,17 +7,20 @@ import Swal from "sweetalert2"; // <-- Add this
 
 const MyRecipe = () => {
   const { user } = useAuthState();
+  console.log("user:", user); // এখানে দেখুন user.uid বা user._id আছে কিনা
   const queryClient = useQueryClient();
   const [editingRecipe, setEditingRecipe] = useState(null);
 
-  // Fetch all recipes for this user
-  const { data, isLoading } = useQuery({
-    queryKey: ["my-recipes", user?.uid || user?._id],
-    queryFn: () => api.recipes.getByUser(user?.uid || user?._id),
-    enabled: !!user,
-  });
+  
+  const userId = user?.uid || user?._id;
+  console.log("userId for my-recipes:", userId); // এখানে দেখুন ঠিক আসছে কিনা
 
-  const recipes = Array.isArray(data) ? data : [];
+  // ইউজারের রেসিপি ফেচ
+  const { data: recipes = [], isLoading, error } = useQuery({
+    queryKey: ["my-recipes", userId],
+    queryFn: () => api.recipes.getByUser(userId),
+    enabled: !!userId,
+  });
 
   // Delete mutation
   const deleteMutation = useMutation({
@@ -82,13 +85,7 @@ const MyRecipe = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (!isLoading && !Array.isArray(data)) {
-    return (
-      <div className="text-red-500 dark:text-red-400">
-        Failed to load recipes.
-      </div>
-    );
-  }
+  if (error) return <div className="text-red-500">Failed to load recipes.</div>;
 
   return (
     <div className="container-custom py-8">

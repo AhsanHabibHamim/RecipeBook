@@ -1,5 +1,5 @@
 // API utility functions for making requests to the backend
-const API_BASE_URL ="https://recipe-ahsan-habib-hamims-projects.vercel.app/api";
+export const API_BASE_URL = "https://backend-dzgjj1688-ahsan-habib-hamims-projects.vercel.app/api";
 
 /**
  * Gets the current user's authentication token
@@ -121,14 +121,13 @@ export const api = {
      * @returns {Promise} Promise object representing the user's recipes
      */
     getByUser: async (userId) => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/recipes/user/${userId}`);
-        if (!response.ok) throw new Error("Failed to fetch user recipes");
-        return await response.json();
-      } catch (error) {
-        console.error("API error:", error);
-        return { error: error.message };
+      if (!userId) {
+        console.error("getByUser called without userId!");
+        return [];
       }
+      const res = await fetch(`${API_BASE_URL}/recipes/my?userId=${userId}`);
+      if (!res.ok) throw new Error("Failed to fetch user's recipes");
+      return await res.json();
     },
 
     /**

@@ -74,6 +74,12 @@ const Navbar = ({ theme, setTheme }) => {
           {user ? (
             <>
               <Link
+                to="/dashboard"
+                className="font-medium hover:text-primary transition-colors"
+              >
+                Dashboard
+              </Link>
+              <Link
                 to="/add-recipe"
                 className="font-medium hover:text-primary transition-colors"
               >
@@ -177,6 +183,13 @@ const Navbar = ({ theme, setTheme }) => {
             </Link>
             {user ? (
               <>
+                <Link
+                  to="/dashboard"
+                  className="p-4 text-center font-medium hover:bg-muted rounded-md"
+                  onClick={closeMenu}
+                >
+                  Dashboard
+                </Link>
                 <Link
                   to="/add-recipe"
                   className="p-4 text-center font-medium hover:bg-muted rounded-md"
