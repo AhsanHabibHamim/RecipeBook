@@ -1,5 +1,5 @@
 // API utility functions for making requests to the backend
-export const API_BASE_URL = "https://backend-dzgjj1688-ahsan-habib-hamims-projects.vercel.app/api";
+export const API_BASE_URL = "http://localhost:5000/api";
 
 /**
  * Gets the current user's authentication token
